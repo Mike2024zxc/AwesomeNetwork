@@ -1,0 +1,28 @@
+﻿@model AwesomeNetwork.ViewModels.Account.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="autent">
+    <form method="post" asp-controller="AccountManager" asp-action="Login">
+
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="ReturnUrl" />
+        <div>
+            <label asp-for="Email"></label><br />
+            <input type="email" asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="RememberMe"></label><br />
+            <input asp-for="RememberMe" />
+        </div>
+        <div>
+            <input type="submit" class="login" value="Войти" />
+        </div>
+    </form>
+</div>

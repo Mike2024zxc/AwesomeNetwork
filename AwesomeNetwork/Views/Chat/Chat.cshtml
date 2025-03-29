@@ -1,0 +1,32 @@
+﻿@model AwesomeNetwork.ViewModels.Account.ChatViewModel;
+@{
+    ViewData["Title"] = "Chat " + Model.ToWhom.GetFullName();
+}
+
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Чат с @Model.ToWhom.GetFullName()</h2>
+        <p>Вы: @Model.You.GetFullName()</p>
+    </div>
+
+    <div class="chat-history">
+
+        @foreach (var message in Model.History)
+        {
+            <div class="chat-message @(message.Sender.Id == Model.You.Id ? "my-message" : "other-message")">
+                <strong>@message.Sender.GetFullName():</strong>
+                <p>@message.Text</p>
+                <span class="message-time">@message.Timestamp.ToString("HH:mm")</span>
+            </div>
+        }
+    </div>
+
+    <div class="chat-input">
+        <form asp-controller="Chat" asp-action="NewMessage" method="post" asp-route-id="@Model.ToWhom.Id">
+            <input type="hidden" name="ToWhomId" value="@Model.ToWhom.Id" />
+            <textarea asp-for="NewMessage.Text" placeholder="Введите сообщение..." rows="3"></textarea>
+            <button type="submit">Отправить</button>
+
+        </form>
+    </div>
+</div>
